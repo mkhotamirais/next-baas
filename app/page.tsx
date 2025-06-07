@@ -17,7 +17,7 @@ export default function Home() {
       <div className="flex flex-col sm:flex-row gap-6">
         {c.logos.map((item, i) => (
           <Link href={item.url} className="group flex gap-2 flex-col items-center border p-3 rounded-md" key={i}>
-            <Image src={item.iconUrl} alt={item.label} width={100} height={100} className="size-20" />
+            <Image src={item.iconUrl} alt={item.label} width={100} height={100} className="size-20" priority />
             <span className="group-hover:underline">{item.label}</span>
           </Link>
         ))}

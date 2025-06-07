@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { LoginSchema } from "@/lib/appwrite/rules";
 import { useAppwriteStore } from "@/lib/appwrite/store";
+import GoogleLogin from "./GoogleLogin";
 
 export default function Login() {
   const [load, setLoad] = useState(false);
@@ -54,39 +55,45 @@ export default function Login() {
               </Link>
             </p>
             {/* form */}
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder="example@email.com" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input type="password" placeholder="********" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" disabled={load || (form.formState.isSubmitted && !form.formState.isValid)}>
-                  Login
-                </Button>
-              </form>
-            </Form>
+            <div>
+              <div className="flex flex-col sm:flex-row gap-2 justify-between">
+                <GoogleLogin />
+                {/* <GithubLogin /> */}
+              </div>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input placeholder="example@email.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input type="password" placeholder="********" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" disabled={load || (form.formState.isSubmitted && !form.formState.isValid)}>
+                    Login
+                  </Button>
+                </form>
+              </Form>
+            </div>
           </div>
         </div>
       </div>
