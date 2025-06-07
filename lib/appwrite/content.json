@@ -1,0 +1,11 @@
+{
+    "main_menu": [
+        {"label": "Home", "url": "/appwrite"},
+        {"label": "About", "url": "/appwrite/about"},
+        {"label": "Posts", "url": "/appwrite/posts"}
+    ],
+    "user_menu": [
+        {"label": "Dashboard", "url": "/appwrite/dashboard"},
+        {"label": "Profile", "url": "/appwrite/profile"}
+    ]
+}
