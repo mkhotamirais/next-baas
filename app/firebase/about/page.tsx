@@ -1,8 +1,10 @@
-export default function FirebasePage() {
+import React from "react";
+
+export default function About() {
   return (
     <section className="section">
       <div className="container">
-        <h1 className="h1">Firebase</h1>
+        <h1 className="h1">About</h1>
       </div>
     </section>
   );

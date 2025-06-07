@@ -1,7 +1,11 @@
 {
     "main_menu": [
-        {"label": "Home", "url": "/"},
-        {"label": "About", "url": "/about"},
-        {"label": "Contact", "url": "/contact"}
+        {"label": "Home", "url": "/firebase"},
+        {"label": "About", "url": "/firebase/about"},
+        {"label": "Posts", "url": "/firebase/posts"}
+    ],
+    "user_menu": [
+        {"label": "Dashboard", "url": "/firebase/dashboard"},
+        {"label": "Profile", "url": "/firebase/profile"}
     ]
 }

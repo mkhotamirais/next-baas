@@ -1,0 +1,7 @@
+{
+    "logos": [
+        { "label": "Appwrite", "url": "/appwrite", "iconUrl": "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/appwrite.svg"},
+        { "label": "Firebase", "url": "/firebase", "iconUrl": "https://brandeps.com/logo-download/F/Firebase-logo-vector-02.svg" },
+        { "label": "Supabase", "url": "/supabase", "iconUrl": "https://raw.githubusercontent.com/gilbarbara/logos/main/logos/supabase-icon.svg"}
+    ]
+}

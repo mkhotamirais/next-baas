@@ -15,7 +15,7 @@ export default function AppwriteLayout({ children }: { children: React.ReactNode
       <header className="header">
         <div className="container flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <GlobalNavMobile logo={<div>logo</div>} menu={c.main_menu} />
+            <GlobalNavMobile logo={<LogoAppwrite />} menu={c.main_menu} />
             <div className="flex gap-2 items-center">
               <Logo />
               <LogoAppwrite />
