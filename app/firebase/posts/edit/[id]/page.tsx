@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { firestore } from "@/config/firebase";
 import { Textarea } from "@/components/ui/textarea";
 import { PostSchema } from "@/lib/appwrite/rules";
-import Loading from "@/components/Loading";
+import Pending from "@/components/Pending";
 
 type PostType = z.infer<typeof PostSchema>;
 
@@ -68,7 +68,7 @@ export default function EditPosId() {
 
   let content = null;
   if (pendingPage) {
-    content = <Loading />;
+    content = <Pending />;
   } else {
     content = (
       <div>

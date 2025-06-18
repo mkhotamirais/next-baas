@@ -1,5 +1,6 @@
 "use client";
 
+import Pending from "@/components/Pending";
 import { collIdPosts, databases, dbIdNextDb } from "@/config/appwrite";
 import { Post } from "@/lib/appwrite/types";
 import { useParams } from "next/navigation";
@@ -28,7 +29,7 @@ export default function ShowPostId() {
 
   let content;
   if (pending) {
-    content = <p>Loading...</p>;
+    content = <Pending />;
   } else {
     content = (
       <article>

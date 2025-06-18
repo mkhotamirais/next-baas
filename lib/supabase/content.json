@@ -1,0 +1,11 @@
+{
+    "main_menu": [
+        {"label": "Home", "url": "/supabase"},
+        {"label": "About", "url": "/supabase/about"},
+        {"label": "Posts", "url": "/supabase/posts"}
+    ],
+    "user_menu": [
+        {"label": "Dashboard", "url": "/supabase/dashboard"},
+        {"label": "Profile", "url": "/supabase/profile"}
+    ]
+}

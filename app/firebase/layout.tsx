@@ -6,7 +6,7 @@ import UserFirebaseProvider from "@/layouts/UserFirebaseProvider";
 import Logo from "@/components/Logo";
 import LogoFirebase from "@/components/LogoFirebase";
 import GlobalNavDesktop from "@/layouts/GlobalNavDesktop";
-import NavUserFirebase from "@/layouts/NavUserFirebase";
+import NavUserFirebase from "@/app/firebase/NavUserFirebase";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 
 export default function FirebaseLayout({ children }: { children: React.ReactNode }) {

@@ -8,31 +8,40 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { auth } from "@/config/firebase";
 import { useRouter } from "next/navigation";
-import { RegisterSchema } from "@/lib/firebase/rules";
+// import { Separator } from "@/components/ui/separator";
+import { supabase } from "@/config/supapabse";
+import { useSupabaseStore } from "@/lib/supabase/store";
+import { LoginSchema } from "@/lib/supabase/rules";
+// import GithubLogin from "./GithubLogin";
 
-type RegisterType = z.infer<typeof RegisterSchema>;
+type LoginType = z.infer<typeof LoginSchema>;
 
-export default function Register() {
+export default function Login() {
   const [pending, setPending] = useState(false);
   const router = useRouter();
+  const { setUser } = useSupabaseStore();
 
-  const form = useForm<RegisterType>({
-    resolver: zodResolver(RegisterSchema),
-    defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
+  const form = useForm<LoginType>({
+    resolver: zodResolver(LoginSchema),
+    defaultValues: { email: "", password: "" },
   });
-  const onSubmit = async (values: RegisterType) => {
-    setPending(true);
 
+  const onSubmit = async (values: LoginType) => {
+    setPending(true);
+    const { email, password } = values;
     try {
-      const res = await createUserWithEmailAndPassword(auth, values.email, values.password);
-      await updateProfile(res.user, { displayName: values.name });
-      toast.success("Register success");
-      router.push("/firebase/dashboard");
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error && process.env.NODE_ENV === "development") {
+        console.log(error);
+      }
+
+      setUser(data?.user);
+
+      form.reset();
+      router.push("/supabase/dashboard");
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -41,35 +50,35 @@ export default function Register() {
       setPending(false);
     }
   };
+
   return (
     <section className="bg-secondary py-12">
       <div className="container">
         <div className="bg-card p-8 rounded-md shadow-md max-w-md mx-auto">
           <div className="mb-4">
-            <h1 className="h1">Register</h1>
+            <h1 className="h1">Login</h1>
             <p>
-              Already have an account?{" "}
-              <Link href="/firebase/login" className="link">
-                Login
+              Do not have an account?{" "}
+              <Link href="/firebase/register" className="link">
+                Register
               </Link>
             </p>
           </div>
+
           <div>
+            <div className="flex flex-col sm:flex-row gap-2 justify-between">
+              {/* <GoogleLogin /> */}
+              {/* <GithubLogin /> */}
+            </div>
+
+            {/* <div className="relative py-6">
+              <p className="z-10 absolute left-1/2 -translate-y-1/2 top-1/2 -translate-x-1/2 text-sm bg-background px-3">
+                Or
+              </p>
+              <Separator />
+            </div> */}
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input type="text" disabled={pending} placeholder="Name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
                 <FormField
                   control={form.control}
                   name="email"
@@ -96,26 +105,14 @@ export default function Register() {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Confirm Password</FormLabel>
-                      <FormControl>
-                        <Input type="password" disabled={pending} placeholder="******" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+
                 <Button
                   type="submit"
                   disabled={pending || (form.formState.isSubmitted && !form.formState.isValid)}
                   className="w-full"
                 >
                   {pending && <Loader2 className="animate-spin size-4 mr-2" />}
-                  Register
+                  Login
                 </Button>
               </form>
             </Form>

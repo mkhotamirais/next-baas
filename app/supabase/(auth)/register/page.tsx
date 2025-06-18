@@ -1,62 +1,67 @@
 "use client";
 
 import Link from "next/link";
+import React, { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { auth } from "@/config/firebase";
 import { useRouter } from "next/navigation";
-import { RegisterSchema } from "@/lib/firebase/rules";
-
-type RegisterType = z.infer<typeof RegisterSchema>;
+import { supabase } from "@/config/supapabse";
+import { useSupabaseStore } from "@/lib/supabase/store";
+import { RegisterSchema } from "@/lib/supabase/rules";
 
 export default function Register() {
-  const [pending, setPending] = useState(false);
+  const [load, setLoad] = useState(false);
+  const { setUser } = useSupabaseStore();
   const router = useRouter();
 
-  const form = useForm<RegisterType>({
+  const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
   });
-  const onSubmit = async (values: RegisterType) => {
-    setPending(true);
+
+  const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
+    setLoad(true);
+    const { name, email, password } = values;
 
     try {
-      const res = await createUserWithEmailAndPassword(auth, values.email, values.password);
-      await updateProfile(res.user, { displayName: values.name });
-      toast.success("Register success");
-      router.push("/firebase/dashboard");
+      const { data, error } = await supabase.auth.signUp({ email, password, options: { data: { name } } });
+      if (error && process.env.NODE_ENV === "development") {
+        console.log(error);
+      }
+
+      setUser(data?.user);
+
+      form.reset();
+      router.push("/supabase/dashboard");
     } catch (error) {
       if (error instanceof Error) {
-        toast.error(error.message);
+        toast.error(error?.message);
       }
     } finally {
-      setPending(false);
+      setLoad(false);
     }
   };
+
   return (
-    <section className="bg-secondary py-12">
+    <section className="bg-secondary min-h-y py-12">
       <div className="container">
-        <div className="bg-card p-8 rounded-md shadow-md max-w-md mx-auto">
-          <div className="mb-4">
+        <div className="bg-background max-w-md mx-auto p-8 rounded-md shadow">
+          <div className="">
             <h1 className="h1">Register</h1>
             <p>
               Already have an account?{" "}
-              <Link href="/firebase/login" className="link">
+              <Link href="/appwrite/login" className="link">
                 Login
               </Link>
             </p>
-          </div>
-          <div>
+            {/* form */}
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
                 <FormField
                   control={form.control}
                   name="name"
@@ -64,7 +69,7 @@ export default function Register() {
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input type="text" disabled={pending} placeholder="Name" {...field} />
+                        <Input placeholder="John Doe" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -77,7 +82,7 @@ export default function Register() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" disabled={pending} placeholder="Email" {...field} />
+                        <Input placeholder="example@email.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -90,7 +95,7 @@ export default function Register() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" disabled={pending} placeholder="******" {...field} />
+                        <Input type="password" placeholder="********" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -103,18 +108,13 @@ export default function Register() {
                     <FormItem>
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
-                        <Input type="password" disabled={pending} placeholder="******" {...field} />
+                        <Input type="password" placeholder="********" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button
-                  type="submit"
-                  disabled={pending || (form.formState.isSubmitted && !form.formState.isValid)}
-                  className="w-full"
-                >
-                  {pending && <Loader2 className="animate-spin size-4 mr-2" />}
+                <Button type="submit" disabled={load || (form.formState.isSubmitted && !form.formState.isValid)}>
                   Register
                 </Button>
               </form>

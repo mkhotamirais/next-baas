@@ -1,14 +1,14 @@
 "use client";
 
-import Pending from "@/components/Pending";
-import { useFirebaseStore } from "@/lib/firebase/store";
 import { useGlobalStore } from "@/lib/globalStore";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Pending from "@/components/Pending";
+import { useSupabaseStore } from "@/lib/supabase/store";
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function AuthLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const { user } = useFirebaseStore();
+  const { user } = useSupabaseStore();
   const { isMounted } = useGlobalStore();
 
   useEffect(() => {

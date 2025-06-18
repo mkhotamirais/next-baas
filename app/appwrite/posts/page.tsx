@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import ModalDelId from "./ModalDelId";
 import { useAppwriteStore } from "@/lib/appwrite/store";
-import Loading from "@/components/Loading";
+import Pending from "@/components/Pending";
 
 export default function Posts() {
   const { posts, setPosts } = useAppwriteStore();
@@ -32,7 +32,7 @@ export default function Posts() {
 
   let content = null;
   if (pendingData) {
-    content = <Loading />;
+    content = <Pending />;
   } else {
     content = (
       <div className="py-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

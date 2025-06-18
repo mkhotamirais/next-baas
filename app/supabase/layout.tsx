@@ -1,35 +1,35 @@
 import GlobalFooter from "@/layouts/GlobalFooter";
 import GlobalNavMobile from "@/layouts/GlobalNavMobile";
 import React from "react";
-import c from "@/lib/appwrite/content.json";
-import UserAppwriteProvider from "@/layouts/UserAppwriteProvider";
+import c from "@/lib/supabase/content.json";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
-import NavUserAppwrite from "@/app/appwrite/NavUserAppwrite";
 import Logo from "@/components/Logo";
-import LogoAppwrite from "@/components/LogoAppwrite";
 import GlobalNavDesktop from "@/layouts/GlobalNavDesktop";
+import LogoSupabase from "@/components/LogoSupabase";
+import UserSupabaseProvider from "@/layouts/UserSupabaseProvider";
+import NavUserSupabase from "@/app/supabase/NavUserSupabase";
 
-export default function AppwriteLayout({ children }: { children: React.ReactNode }) {
+export default function SupabaseLayout({ children }: { children: React.ReactNode }) {
   return (
-    <UserAppwriteProvider>
+    <UserSupabaseProvider>
       <header className="header">
         <div className="container flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <GlobalNavMobile logo={<LogoAppwrite />} menu={c.main_menu} />
+            <GlobalNavMobile logo={<LogoSupabase />} menu={c.main_menu} />
             <div className="flex gap-2 items-center">
               <Logo />
-              <LogoAppwrite />
+              <LogoSupabase />
             </div>
           </div>
           <div className="flex items-center gap-2">
             <GlobalNavDesktop menu={c.main_menu} />
-            <NavUserAppwrite />
+            <NavUserSupabase />
             <ThemeToggle />
           </div>
         </div>
       </header>
       <main className="flex-1">{children}</main>
       <GlobalFooter />
-    </UserAppwriteProvider>
+    </UserSupabaseProvider>
   );
 }

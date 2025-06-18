@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/config/firebase";
 import { Post } from "@/lib/firebase/types";
-import Loading from "@/components/Loading";
+import Pending from "@/components/Pending";
 
 export default function ShowPostId() {
   const [data, setData] = useState<Post | null>(null);
@@ -34,7 +34,7 @@ export default function ShowPostId() {
 
   let content = null;
   if (pendingData) {
-    content = <Loading />;
+    content = <Pending />;
   } else {
     content = (
       <>

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import DeletePost from "./DeletePost";
 import { useFirebaseStore } from "@/lib/firebase/store";
 import { Post } from "@/lib/firebase/types";
-import Loading from "@/components/Loading";
+import Pending from "@/components/Pending";
 
 export default function Posts() {
   const { posts, setPosts } = useFirebaseStore();
@@ -36,7 +36,7 @@ export default function Posts() {
 
   let content = null;
   if (pending) {
-    content = <Loading />;
+    content = <Pending />;
   } else {
     content = (
       <div className="my-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

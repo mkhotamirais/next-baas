@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/components/Loading";
+import Pending from "@/components/Pending";
 import { useAppwriteStore } from "@/lib/appwrite/store";
 import { useGlobalStore } from "@/lib/globalStore";
 import { useRouter } from "next/navigation";
@@ -17,7 +17,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }
   }, [isMounted, user, router]);
 
-  if (user) return <>{children}</>;
+  if (!isMounted || !user) return <Pending />;
 
-  return <Loading />;
+  return <>{children}</>;
 }

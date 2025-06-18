@@ -26,11 +26,18 @@ export const RegisterSchema = z
     path: ["confPassword"],
   });
 
-export const PostSchema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
-  content: z.string().min(1, { message: "Content is required" }),
-  banner: z
-    .any()
-    .refine((file) => file === undefined || file instanceof File, { message: "File must be an image" })
-    .optional(),
+// export const PostSchema = z.object({
+//   title: z.string().min(1, { message: "Title is required" }),
+//   content: z.string().min(1, { message: "Content is required" }),
+//   banner: z
+//     .any()
+//     .refine((file) => file === undefined || file instanceof File, { message: "File must be an image" })
+//     .optional(),
+// });
+
+export const userSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email"),
+  phone: z.string().min(8, "Phone must be at least 8 characters"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });

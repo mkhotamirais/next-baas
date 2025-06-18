@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/components/Loading";
+import Pending from "@/components/Pending";
 import { useFirebaseStore } from "@/lib/firebase/store";
 import { useGlobalStore } from "@/lib/globalStore";
 import { useRouter } from "next/navigation";
@@ -16,8 +16,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       router.replace("/firebase/dashboard");
     }
   }, [isMounted, user, router]);
+  if (!isMounted || user) return <Pending />;
 
-  if (!user) return <>{children}</>;
-
-  return <Loading />;
+  return <>{children}</>;
 }

@@ -14,7 +14,7 @@ import { bucketIdNextBucket, collIdPosts, databases, dbIdNextDb, ID, storage } f
 import { PostSchema } from "@/lib/appwrite/rules";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
-import Loading from "@/components/Loading";
+import Pending from "@/components/Pending";
 
 type Post = z.infer<typeof PostSchema>;
 
@@ -88,7 +88,7 @@ export default function EditPostId() {
 
   let content = null;
   if (pendingData) {
-    content = <Loading />;
+    content = <Pending />;
   } else {
     content = (
       <div className="max-w-xl">
