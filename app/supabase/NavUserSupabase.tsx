@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import c from "@/lib/supabase/content.json";
 import { useSupabaseStore } from "@/lib/supabase/store";
-import { supabase } from "@/config/supapabse";
+import { supabase } from "@/config/supabase";
 import Sheet2 from "@/components/ui/Sheet2";
 
 export default function NavUserSupabase() {

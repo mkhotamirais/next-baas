@@ -1,6 +1,6 @@
 "use client";
 
-import { supabase } from "@/config/supapabse";
+import { supabase } from "@/config/supabase";
 import { useGlobalStore } from "@/lib/globalStore";
 import { useSupabaseStore } from "@/lib/supabase/store";
 import { useEffect } from "react";

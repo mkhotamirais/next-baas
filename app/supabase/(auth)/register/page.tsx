@@ -10,7 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/config/supapabse";
+import { supabase } from "@/config/supabase";
 import { useSupabaseStore } from "@/lib/supabase/store";
 import { RegisterSchema } from "@/lib/supabase/rules";
 

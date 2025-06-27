@@ -12,7 +12,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 // import { Separator } from "@/components/ui/separator";
-import { supabase } from "@/config/supapabse";
+import { supabase } from "@/config/supabase";
 import { useSupabaseStore } from "@/lib/supabase/store";
 import { LoginSchema } from "@/lib/supabase/rules";
 // import GithubLogin from "./GithubLogin";
