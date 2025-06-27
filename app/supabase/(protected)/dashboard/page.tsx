@@ -6,8 +6,6 @@ import React from "react";
 export default function Dashboard() {
   const { user } = useSupabaseStore();
 
-  console.log(user);
-
   return (
     <section className="py-4 min-h-y">
       <div className="container">
