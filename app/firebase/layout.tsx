@@ -7,7 +7,6 @@ import Logo from "@/components/Logo";
 import LogoFirebase from "@/components/LogoFirebase";
 import GlobalNavDesktop from "@/layouts/GlobalNavDesktop";
 import NavUserFirebase from "@/app/firebase/NavUserFirebase";
-import { ThemeToggle } from "@/layouts/ThemeToggle";
 
 export default function FirebaseLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,7 +14,6 @@ export default function FirebaseLayout({ children }: { children: React.ReactNode
       <header className="header">
         <div className="container flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <GlobalNavMobile logo={<LogoFirebase />} menu={c.main_menu} />
             <div className="flex gap-2 items-center">
               <Logo />
               <LogoFirebase />
@@ -24,7 +22,7 @@ export default function FirebaseLayout({ children }: { children: React.ReactNode
           <div className="flex items-center gap-2">
             <GlobalNavDesktop menu={c.main_menu} />
             <NavUserFirebase />
-            <ThemeToggle />
+            <GlobalNavMobile logo={<LogoFirebase />} menu={c.main_menu} />
           </div>
         </div>
       </header>

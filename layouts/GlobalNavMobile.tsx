@@ -25,7 +25,7 @@ export default function GlobalNavMobile({ logo, menu }: GlobalNavMobileProps) {
             <Menu />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-64">
+        <SheetContent side="right" className="w-64">
           <SheetHeader>
             <SheetTitle>{logo}</SheetTitle>
             <SheetDescription className="hidden"></SheetDescription>

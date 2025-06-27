@@ -2,7 +2,6 @@ import GlobalFooter from "@/layouts/GlobalFooter";
 import GlobalNavMobile from "@/layouts/GlobalNavMobile";
 import React from "react";
 import c from "@/lib/supabase/content.json";
-import { ThemeToggle } from "@/layouts/ThemeToggle";
 import Logo from "@/components/Logo";
 import GlobalNavDesktop from "@/layouts/GlobalNavDesktop";
 import LogoSupabase from "@/components/LogoSupabase";
@@ -15,7 +14,6 @@ export default function SupabaseLayout({ children }: { children: React.ReactNode
       <header className="header">
         <div className="container flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <GlobalNavMobile logo={<LogoSupabase />} menu={c.main_menu} />
             <div className="flex gap-2 items-center">
               <Logo />
               <LogoSupabase />
@@ -24,7 +22,7 @@ export default function SupabaseLayout({ children }: { children: React.ReactNode
           <div className="flex items-center gap-2">
             <GlobalNavDesktop menu={c.main_menu} />
             <NavUserSupabase />
-            <ThemeToggle />
+            <GlobalNavMobile logo={<LogoSupabase />} menu={c.main_menu} />
           </div>
         </div>
       </header>
